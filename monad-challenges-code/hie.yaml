@@ -1,0 +1,10 @@
+cradle:
+  cabal:
+    - path: "src"
+      component: "lib:monad-challenges-code"
+
+    - path: "test"
+      component: "monad-challenges-code:test:tests"
+
+    - path: "hakyll/site.hs"
+      component: "monad-challenges-code:exe:site"
