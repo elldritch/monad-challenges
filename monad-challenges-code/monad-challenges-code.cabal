@@ -42,8 +42,11 @@ test-suite tests
   main-is:        Main.hs
   build-depends:
       base
+    , base16-bytestring
+    , cryptohash-sha256
     , hspec
     , monad-challenges-code
+    , text
 
 executable site
   hs-source-dirs:   hakyll

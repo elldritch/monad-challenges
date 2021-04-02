@@ -1,12 +1,18 @@
-module Set1 (fiveRands) where
+module Set1 (fiveRands, randString3) where
 
-import MCPrelude (mkSeed, rand)
+import MCPrelude (Seed, mkSeed, rand, toLetter)
+
+randsFromGen :: (Seed -> (t, Seed)) -> Seed -> [(t, Seed)]
+randsFromGen f seed = tail $ iterate (\(x, s) -> f s) (undefined, seed)
+
+rands :: Seed -> [(Integer, Seed)]
+rands = randsFromGen rand
 
 fiveRands :: [Integer]
-fiveRands = [a, b, c, d, e]
-  where
-    (a, a') = rand $ mkSeed 1
-    (b, b') = rand a'
-    (c, c') = rand b'
-    (d, d') = rand c'
-    (e, e') = rand d'
+fiveRands = take 5 $ fmap fst $ rands $ mkSeed 1
+
+randLetter :: Seed -> (Char, Seed)
+randLetter seed = let (n, s) = rand seed in (toLetter n, s)
+
+randString3 :: String
+randString3 = take 3 $ fmap fst $ randsFromGen randLetter $ mkSeed 1
