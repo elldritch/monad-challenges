@@ -6,7 +6,8 @@ module Set1
     randTen,
     randPair,
     randPair_,
-  randString3')
+    randString3',
+  )
 where
 
 import MCPrelude (Seed, mkSeed, rand, toLetter)
@@ -68,3 +69,12 @@ repRandom = foldr (generalB (:)) (\s -> ([], s))
 
 randString3' :: String
 randString3' = fst $ repRandom (replicate 3 randLetter) (mkSeed 1)
+
+genTwo :: Gen a -> (a -> Gen b) -> Gen b
+genTwo g f s = g2 s'
+  where
+    (a, s') = g s
+    g2 = f a
+
+mkGen :: a -> Gen a
+mkGen a = \s -> (a, s)

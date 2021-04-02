@@ -7,7 +7,7 @@ import Data.ByteString.Base16 (encode)
 import qualified Data.Text as T
 import Data.Text.Encoding (encodeUtf8)
 import MCPrelude (mkSeed)
-import Set1 (fiveRands, randEven, randOdd, randPair, randString3, randTen, randPair_, randString3')
+import Set1 (fiveRands, randEven, randOdd, randPair, randPair_, randString3, randString3', randTen)
 import Test.Hspec (describe, hspec, it, shouldBe)
 
 main :: IO ()
