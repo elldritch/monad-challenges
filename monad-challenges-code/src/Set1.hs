@@ -6,7 +6,7 @@ module Set1
     randTen,
     randPair,
     randPair_,
-  )
+  randString3')
 where
 
 import MCPrelude (Seed, mkSeed, rand, toLetter)
@@ -14,7 +14,7 @@ import MCPrelude (Seed, mkSeed, rand, toLetter)
 type Gen t = Seed -> (t, Seed)
 
 randsFromGen :: Gen t -> Seed -> [(t, Seed)]
-randsFromGen f seed = tail $ iterate (\(x, s) -> f s) (undefined, seed)
+randsFromGen f seed = tail $ iterate (\(_, s) -> f s) (undefined, seed)
 
 rands :: Seed -> [(Integer, Seed)]
 rands = randsFromGen rand
@@ -62,3 +62,9 @@ generalB f g1 g2 s = (f a b, s'')
 
 generalPair2 :: Gen a -> Gen b -> Gen (a, b)
 generalPair2 = generalB (,)
+
+repRandom :: [Gen a] -> Gen [a]
+repRandom = foldr (generalB (:)) (\s -> ([], s))
+
+randString3' :: String
+randString3' = fst $ repRandom (replicate 3 randLetter) (mkSeed 1)
