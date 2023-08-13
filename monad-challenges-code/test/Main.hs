@@ -6,9 +6,11 @@ import Crypto.Hash.SHA256 (hash)
 import Data.ByteString.Base16 (encode)
 import qualified Data.Text as T
 import Data.Text.Encoding (encodeUtf8)
-import MCPrelude (mkSeed)
-import Set1 (fiveRands, randEven, randOdd, randPair, randPair_, randString3, randString3', randTen)
 import Test.Hspec (describe, hspec, it, shouldBe)
+
+import MCPrelude (mkSeed)
+
+import Set1 (fiveRands, randEven, randOdd, randPair, randPair_, randString3, randString3', randTen)
 
 main :: IO ()
 main = hspec $ do
@@ -18,4 +20,4 @@ main = hspec $ do
     it "rand{Even,Odd,Ten}" $ product ((\f -> fst $ f $ mkSeed 1) <$> [randEven, randOdd, randTen]) `shouldBe` 189908109902700
     it "randPair" $ fst (randPair $ mkSeed 1) `shouldBe` ('l', 282475249)
     it "randPair_" $ fst (randPair_ $ mkSeed 1) `shouldBe` ('l', 282475249)
-    it "randString3'" $ encode (hash $ encodeUtf8 $ T.pack randString3') `shouldBe` "9d475eb78d3e38085220ed6ebde9d8f7d26540bb1c8f9382479c3acd4c8c94a3"
+    it "randString3'" $ encode (hash $ encodeUtf8 $ T.pack $ fst randString3') `shouldBe` "9d475eb78d3e38085220ed6ebde9d8f7d26540bb1c8f9382479c3acd4c8c94a3"
