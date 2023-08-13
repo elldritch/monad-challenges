@@ -10,29 +10,7 @@ module Set2 (
   tailMin,
 ) where
 
-import MCPrelude (
-  Bool (False, True),
-  Double,
-  Eq ((==)),
-  Fractional ((/)),
-  GreekData,
-  Integer,
-  Num ((+)),
-  Ord (max, min),
-  Show (show),
-  String,
-  flip,
-  foldr,
-  fromInteger,
-  fromIntegral,
-  ifThenElse,
-  product,
-  sum,
-  undefined,
-  ($),
-  (++),
-  (.),
- )
+import MCPrelude
 
 -- Part 1
 

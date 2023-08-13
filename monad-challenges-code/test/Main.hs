@@ -11,10 +11,11 @@ import qualified Data.Text as T
 import Data.Text.Encoding (encodeUtf8)
 import Test.Hspec (describe, hspec, it, shouldBe)
 
-import MCPrelude (greekDataA, greekDataB, mkSeed, salaries)
+import MCPrelude (cardRanks, cardSuits, greekDataA, greekDataB, mkSeed, salaries)
 
 import Set1 (fiveRands, randEven, randOdd, randPair, randPair_, randString3, randString3', randTen)
 import Set2 (Maybe (..), addSalaries, addSalaries2, queryGreek, queryGreek2, tailMax, tailMin, tailProd, tailSum)
+import Set3 (allCards, allCards', allCombs', allCombs3, allCombs3', allPairs, allPairs')
 
 main :: IO ()
 main = hspec $ do
@@ -47,6 +48,26 @@ main = hspec $ do
       tailMin [] `shouldBe` (Nothing :: Maybe (Maybe Integer))
       tailMin [42] `shouldBe` Just Nothing
       tailMin [2, 3, 5] `shouldBe` Just (Just 3)
+
+  describe "Set 3: Combinations" $ do
+    it "allPairs" $ do
+      allPairs [1, 2] [3, 4] `shouldBe` [(1, 3), (1, 4), (2, 3), (2, 4)]
+      allPairs [1 .. 3] [6 .. 8] `shouldBe` [(1, 6), (1, 7), (1, 8), (2, 6), (2, 7), (2, 8), (3, 6), (3, 7), (3, 8)]
+      allPairs cardRanks cardSuits `shouldBe` [(2, "H"), (2, "D"), (2, "C"), (2, "S"), (3, "H"), (3, "D"), (3, "C"), (3, "S"), (4, "H"), (4, "D"), (4, "C"), (4, "S"), (5, "H"), (5, "D"), (5, "C"), (5, "S")]
+    it "allCards" $ show (allCards cardRanks cardSuits) `shouldBe` "[2H,2D,2C,2S,3H,3D,3C,3S,4H,4D,4C,4S,5H,5D,5C,5S]"
+    it "allPairs'" $ do
+      allPairs' [1, 2] [3, 4] `shouldBe` [(1, 3), (1, 4), (2, 3), (2, 4)]
+      allPairs' [1 .. 3] [6 .. 8] `shouldBe` [(1, 6), (1, 7), (1, 8), (2, 6), (2, 7), (2, 8), (3, 6), (3, 7), (3, 8)]
+      allPairs' cardRanks cardSuits `shouldBe` [(2, "H"), (2, "D"), (2, "C"), (2, "S"), (3, "H"), (3, "D"), (3, "C"), (3, "S"), (4, "H"), (4, "D"), (4, "C"), (4, "S"), (5, "H"), (5, "D"), (5, "C"), (5, "S")]
+    it "allCards'" $ show (allCards' cardRanks cardSuits) `shouldBe` "[2H,2D,2C,2S,3H,3D,3C,3S,4H,4D,4C,4S,5H,5D,5C,5S]"
+    it "allCombs3" $
+      allCombs3 (,,) [1, 2] [3, 4] [5, 6] `shouldBe` [(1, 3, 5), (1, 3, 6), (1, 4, 5), (1, 4, 6), (2, 3, 5), (2, 3, 6), (2, 4, 5), (2, 4, 6)]
+    it "allCombs'" $ do
+      allCombs' (,) [1, 2] [3, 4] `shouldBe` [(1, 3), (1, 4), (2, 3), (2, 4)]
+      allCombs' (,) [1 .. 3] [6 .. 8] `shouldBe` [(1, 6), (1, 7), (1, 8), (2, 6), (2, 7), (2, 8), (3, 6), (3, 7), (3, 8)]
+      allCombs' (,) cardRanks cardSuits `shouldBe` [(2, "H"), (2, "D"), (2, "C"), (2, "S"), (3, "H"), (3, "D"), (3, "C"), (3, "S"), (4, "H"), (4, "D"), (4, "C"), (4, "S"), (5, "H"), (5, "D"), (5, "C"), (5, "S")]
+    it "allCombs3'" $
+      allCombs3' (,,) [1, 2] [3, 4] [5, 6] `shouldBe` [(1, 3, 5), (1, 3, 6), (1, 4, 5), (1, 4, 6), (2, 3, 5), (2, 3, 6), (2, 4, 5), (2, 4, 6)]
  where
   testQueryGreek f =
     forM_ cases $

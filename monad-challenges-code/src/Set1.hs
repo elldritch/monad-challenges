@@ -9,23 +9,7 @@ module Set1 (
   randString3',
 ) where
 
-import MCPrelude (
-  Char,
-  Integer,
-  Seed,
-  String,
-  foldr,
-  fromInteger,
-  mkSeed,
-  rand,
-  replicate,
-  toLetter,
-  ($),
-  (*),
-  (+),
-  (++),
-  (.),
- )
+import MCPrelude
 
 -- Part 1
 

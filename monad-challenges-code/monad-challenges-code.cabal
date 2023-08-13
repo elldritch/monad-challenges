@@ -17,6 +17,7 @@ library
     MCPrelude
     Set1
     Set2
+    Set3
 
   default-extensions:
     NoImplicitPrelude
@@ -30,8 +31,8 @@ library
     -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
     -Wmonomorphism-restriction -Wmissing-local-signatures
     -Wmissing-exported-signatures -Wmissing-export-lists
-    -Wmissing-import-lists -Wmissing-home-modules -Widentities
-    -Wredundant-constraints -Wpartial-fields
+    -Wmissing-home-modules -Widentities -Wredundant-constraints
+    -Wpartial-fields -Wno-unused-top-binds
 
 test-suite tests
   type:           exitcode-stdio-1.0
