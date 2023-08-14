@@ -1,5 +1,8 @@
 module Set2 (
   Maybe (..),
+  link,
+  yLink,
+  mkMaybe,
   queryGreek,
   queryGreek2,
   addSalaries,
