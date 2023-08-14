@@ -51,7 +51,7 @@ randOdd = generalA $ (+ 1) . (* 2)
 randTen :: Gen Integer
 randTen = generalA (* 10)
 
-generalA :: (Integer -> a) -> Seed -> (a, Seed)
+generalA :: (Integer -> a) -> Gen a
 generalA f s = (f n, s')
  where
   (n, s') = rand s

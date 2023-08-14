@@ -102,11 +102,11 @@ addSalaries d a b = mx `link` \x -> my `link` \y -> mkMaybe $ x + y
   mx = lookupMay a d
   my = lookupMay b d
 
-yLink :: Maybe a -> (a -> b) -> Maybe b
-yLink ma f = ma `link` \a -> mkMaybe $ f a
+yLink :: (a -> b -> Maybe c) -> Maybe a -> Maybe b -> Maybe c
+yLink f ma mb = ma `link` \a -> mb `link` \b -> f a b
 
 addSalaries2 :: [(String, Integer)] -> String -> String -> Maybe Integer
-addSalaries2 d a b = mx `link` \x -> my `yLink` \y -> x + y
+addSalaries2 d a b = yLink (\x y -> mkMaybe $ x + y) mx my
  where
   mx = lookupMay a d
   my = lookupMay b d
@@ -117,13 +117,13 @@ mkMaybe = Just
 -- Part 6
 
 tailProd :: Num a => [a] -> Maybe a
-tailProd xs = tailMay xs `yLink` product
+tailProd xs = tailMay xs `link` (mkMaybe . product)
 
 tailSum :: Num a => [a] -> Maybe a
-tailSum xs = tailMay xs `yLink` sum
+tailSum xs = tailMay xs `link` (mkMaybe . sum)
 
 transMaybe :: (a -> b) -> Maybe a -> Maybe b
-transMaybe f ma = ma `yLink` f
+transMaybe f ma = ma `link` (mkMaybe . f)
 
 tailMax :: Ord a => [a] -> Maybe (Maybe a)
 tailMax = transMaybe maximumMay . tailMay
